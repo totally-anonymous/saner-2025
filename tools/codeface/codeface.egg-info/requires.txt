@@ -1,0 +1,7 @@
+progressbar
+VCS
+python-ctags3
+PyYAML
+mysqlclient
+jira
+ftfy<5

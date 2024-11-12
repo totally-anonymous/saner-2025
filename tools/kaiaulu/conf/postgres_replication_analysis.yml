@@ -1,0 +1,1000 @@
+# -*- yaml -*-
+# https://github.com/sailuh/kaiaulu
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+# Project Configuration File #
+#
+# To perform analysis on open source projects, you need to manually
+# collect some information from the project's website. As there is
+# no standardized website format, this file serves to distill
+# important data source information so it can be reused by others
+# and understood by Kaiaulu.
+#
+# Please check https://github.com/sailuh/kaiaulu/tree/master/conf to
+# see if a project configuration file already exists. Otherwise, we
+# would appreciate if you share your curated file with us by sending a
+# Pull Request: https://github.com/sailuh/kaiaulu/pulls
+#
+# Note, you do NOT need to specify this entire file to conduct analysis.
+# Each R Notebook uses a different portion of this file. To know what
+# information is used, see the project configuration file section at
+# the start of each R Notebook.
+#
+# Please comment unused parameters instead of deleting them for clarity.
+# If you have questions, please open a discussion:
+# https://github.com/sailuh/kaiaulu/discussions
+
+project:
+  website: https://www.postgresql.org/
+  openhub: https://openhub.net/p/postgres
+
+version_control:
+  # Where is the git log located locally?
+  # This is the path to the .git of the project repository you are analyzing.
+  # The .git is hidden, so you can see it using `ls -a`
+  log: /home/saner/data/git-repos/postgres/.git
+  # From where the git log was downloaded?
+  log_url: https://github.com/postgres/postgres
+  # List of branches used for analysis
+  branch:
+    - master
+
+# mailing_list:
+  # Where is the mbox located locally?
+  #mbox: ../../rawdata/mbox/geronimo-dev.mbox
+  # What is the domain of the chosen mailing list archive?
+  #domain: http://mail-archives.apache.org/mod_mbox
+  # Which lists of the domain will be used?
+  #list_key:
+  #  - apr-dev
+
+#issue_tracker:
+#  jira:
+    # Obtained from the project's JIRA URL
+#    domain: https://issues.apache.org/jira
+#    project_key: CAMEL
+    # Download using `download_jira_data.Rmd`
+#    issues: ../../rawdata/issue_tracker/camel_issues.json
+#    issue_comments: ../../rawdata/issue_tracker/camel_issue_comments.json
+#  github:
+    # Obtained from the project's GitHub URL
+#    owner: apache
+#    repo: apr
+    # Download using `download_github_comments.Rmd`
+#    replies: ../../rawdata/github/apr/
+
+#vulnerabilities:
+  # Folder path with nvd cve feeds (e.g. nvdcve-1.1-2018.json)
+  # Download at: https://nvd.nist.gov/vuln/data-feeds
+  #nvd_feed: rawdata/nvdfeed
+
+# Commit message CVE or Issue Regular Expression (regex)
+# See project's commit message for examples to create the regex
+# commit_message_id_regex:
+#   issue_id: CAMEL-[0-9]+
+#   #cve_id: ?
+
+filter:
+  keep_filepaths_ending_with:
+    - ada
+    - asmx
+    - bb
+    - c
+    - cc
+    - cpp
+    - coffee
+    - cxx
+    - cs
+    - d
+    - dart
+    - ddl
+    - erl
+    - es6
+    - exs
+    - ex
+    - f
+    - for
+    - f90
+    - go
+    - groovy
+    - gsh
+    - gv
+    - gvy
+    - gy
+    - idl
+    - inc
+    - j
+    - jav
+    - java
+    - js
+    - jsm
+    - kt
+    - ktm
+    - kts
+    - lisp
+    - lua
+    - lsp
+    - m
+    - mm
+    - odl
+    - php
+    - php4
+    - php5
+    - phtml
+    - pl
+    - pm
+    - ps1
+    - py
+    - q
+    - r
+    - rb
+    - ru
+    - rs
+    - rscript
+    - sc
+    - scala
+    - sh
+    - sql
+    - swift
+    - tcl
+    - ts
+    - vue
+  # remove_filepaths_containing:
+  #   - test
+  #   - java_code_examples
+  # remove_filepaths_on_commit_size_greather_than:
+  #   - 30
+
+# Third Party Tools Configuration #
+#
+# See Kaiaulu's README.md for details on how to setup these tools.
+tool:
+  # # Depends allow to parse file-file static dependencies.
+  # depends:
+  #   # accepts one language at a time: cpp, java, ruby, python, pom
+  #   # You can obtain this information on OpenHub or the project GiHub page right pane.
+  #   code_language: java
+  #   # Specify which types of Dependencies to keep - see the Depends tool README.md for details.
+  #   keep_dependencies_type:
+  #     - Cast
+  #     - Call
+  #     - Import
+  #     - Return
+  #     - Set
+  #     - Use
+  #     - Implement
+  #     - ImplLink
+  #     - Extend
+  #     - Create
+  #     - Throw
+  #     - Parameter
+  #     - Contain
+  # dv8:
+  #   # The project folder path to store various intermediate
+  #   # files for DV8 Analysis
+  #   # The folder name will be used in the file names.
+  #   folder_path: ../../analysis/dv8/camel_1_0_0
+  #   # the architectural flaws thresholds that should be used
+  #   architectural_flaws:
+  #     cliqueDepends:
+  #       - call
+  #       - use
+  #     crossingCochange: 2
+  #     crossingFanIn: 4
+  #     crossingFanOut: 4
+  #     mvCochange: 2
+  #     uiCochange: 2
+  #     uihDepends:
+  #       - call
+  #       - use
+  #     uihInheritance:
+  #       - extend
+  #       - implement
+  #       - public
+  #       - private
+  #       - virtual
+  #     uiHistoryImpact: 10
+  #     uiStructImpact: 0.01
+  # Uctags allows finer file-file dependency parsing (e.g. functions, classes, structs)
+  uctags:
+    # See https://github.com/sailuh/kaiaulu/wiki/Universal-Ctags for details
+    # What types of file-file dependencies should be considered? If all
+    # dependencies are specified, Kaiaulu will use all of them if available.
+    keep_lines_type:
+      ada:
+        - f # formal
+        - s
+        - c # component
+        - n # constant
+        - p # package
+        - g
+        - d
+        - t # type
+        - u # subtype
+        - r # subprogram
+        - p # package
+        - y # anon
+      asp:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      c:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      cc:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      coffee:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      cpp:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      cs:
+        - f # field/function
+        - s
+        - c # class
+        - n # namespace
+        - p # package/property
+        - g # enum
+        - d
+        - t
+        - u
+        - m # method
+        - i # interface
+      cxx:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      d:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      dart:
+        - f # field/function
+        - s
+        - c # class
+        - n # namespace
+        - p # package/property
+        - g # enum
+        - d
+        - t
+        - u
+        - m # method
+        - i # interface
+      ddl:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      erl:
+        - f # function
+        - s # source
+        - c # vector
+        - n # nameattr
+        - p
+        - g # globalVar
+        - d # dataframe
+        - t # type
+        - u
+        - m # module
+      es6:
+        - f # field/function
+        - s
+        - c # class
+        - n # namespace
+        - p # package/property
+        - g # enum
+        - d
+        - t
+        - u
+        - m # method
+        - i # interface
+      exs:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      ex:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      f:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      for:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      f90:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      go:
+        - f # function
+        - s # struct
+        - c # const
+        - n # methodSpec
+        - p # package
+        - g
+        - d
+        - t # type
+        - u
+        - i # interface
+        - m # member
+        - r
+      groovy:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      gsh:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      gv:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      gvy:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      gy:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      idl:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      inc:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      j:
+        - f # field/function
+        - s
+        - c # class
+        - n # namespace
+        - p # package/property
+        - g # enum
+        - d
+        - t
+        - u
+        - m # method
+        - i # interface
+      jav:
+        - f # field/function
+        - s
+        - c # class
+        - n # namespace
+        - p # package/property
+        - g # enum
+        - d
+        - t
+        - u
+        - m # method
+        - i # interface
+      java:
+        - f # field/function
+        - s
+        - c # class
+        - n # namespace
+        - p # package/property
+        - g # enum
+        - d
+        - t
+        - u
+        - m # method
+        - i # interface
+      js:
+        - f # field/function
+        - s
+        - c # class
+        - n # namespace
+        - p # package/property
+        - g # enum
+        - d
+        - t
+        - u
+        - m # method
+        - i # interface
+      jsm:
+        - f # field/function
+        - s
+        - c # class
+        - n # namespace
+        - p # package/property
+        - g # enum
+        - d
+        - t
+        - u
+        - m # method
+        - i # interface
+      kt:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      ktm:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      kts:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      lisp:
+        - f # function
+        - s # subroutine
+        - c # const
+        - n
+        - p # package
+        - g
+        - d # subroutineDeclaration
+        - t # token
+        - u # rule
+        - M # module
+      lua:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      lsp:
+        - f # function
+        - s # subroutine
+        - c # const
+        - n
+        - p # package
+        - g
+        - d # subroutineDeclaration
+        - t # token
+        - u # rule
+        - M # module
+      m:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      mm:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      odl:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      php:
+        - f # function
+        - s
+        - c # class
+        - n # namespace
+        - p
+        - g
+        - d # define
+        - t # trait
+        - u
+        - i # interface
+        - j
+      phtml:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      pl:
+        - f # function
+        - s # subroutine
+        - c # const
+        - n
+        - p # package
+        - g
+        - d # subroutineDeclaration
+        - t # token
+        - u # rule
+        - M # module
+      pm:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      ps1:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      py:
+        - f # function
+        - s
+        - c # class
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+        - m # member
+      q:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      r:
+        - f # function
+        - s # source
+        - c # vector
+        - n # nameattr
+        - p
+        - g # globalVar
+        - d # dataframe
+        - t # type
+        - u
+        - m # module
+      rb:
+        - f # method
+        - s # singeltonMethod
+        - c # class
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+        - m # module
+      rs:
+        - f # function
+        - s # struct
+        - c
+        - n # module
+        - p
+        - g # enum
+        - d
+        - t # typedef
+        - u
+        - i # interface
+        - P # method
+      rscript:
+        - f # function
+        - s # source
+        - c # vector
+        - n # nameattr
+        - p
+        - g # globalVar
+        - d # dataframe
+        - t # type
+        - u
+        - m # module
+      ru:
+        - f # function
+        - s # struct
+        - c
+        - n # module
+        - p
+        - g # enum
+        - d
+        - t # typedef
+        - u
+        - i # interface
+        - P # method
+      sc:
+        - f # field/function
+        - s
+        - c # class
+        - n # namespace
+        - p # package/property
+        - g # enum
+        - d
+        - t
+        - u
+        - m # method
+        - i # interface
+      scala:
+        - f # field/function
+        - s
+        - c # class
+        - n # namespace
+        - p # package/property
+        - g # enum
+        - d
+        - t
+        - u
+        - m # method
+        - i # interface
+      sh:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      sql:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      swift:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      tcl:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+      ts:
+        - f # field/function
+        - s
+        - c # class
+        - n # namespace
+        - p # package/property
+        - g # enum
+        - d
+        - t
+        - u
+        - m # method
+        - i # interface
+      vue:
+        - f
+        - s
+        - c
+        - n
+        - p
+        - g
+        - d
+        - t
+        - u
+
+# Analysis Configuration #
+analysis:
+  # # A list of topic and keywords (see src_text_showcase.Rmd).
+  # topics:
+  #   topic_1:
+  #     - Parser
+  #     - Lexer
+  #   topic_2:
+  #     - Python
+  #     - Ruby
+  # You can specify the intervals in 2 ways: window, or enumeration
+  window:
+    # # If using gitlog, use start_commit and end_commit. Timestamp is inferred from gitlog
+    # start_commit: 9eae9e96f15e1f216162810cef4271a439a74223
+    # end_commit: f8f9ec1f249dd552065aa37c983bed4d4d869bb0
+    # # Use datetime only if no gitlog is used in the analysis.
+    # start_datetime: 2013-05-01 00:00:00
+    # end_datetime: 2013-11-01 00:00:00
+    # You can provide a set of dates to create time windows between these
+    # dates for evolutionary analyses.
+    ranges:
+      - 1996-07-09 06:22:35
+      - 1996-08-28 23:02:43
+      - 1996-12-03 00:11:07
+      - 1997-03-02 02:40:01
+      - 1997-06-01 03:18:32
+      - 1997-08-29 21:41:33
+      - 1997-11-27 03:11:55
+      - 1998-02-26 02:18:09
+      - 1998-05-26 17:29:07
+      - 1998-08-25 03:22:49
+      - 1998-11-22 10:48:45
+      - 1999-02-21 03:17:31
+      - 1999-05-22 02:55:58
+      - 1999-08-18 15:11:52
+      - 1999-11-17 23:51:21
+      - 2000-02-16 01:00:23
+      - 2000-05-16 03:18:43
+      - 2000-08-13 02:50:35
+      - 2000-11-12 00:37:02
+      - 2001-02-10 03:12:16
+      - 2001-05-11 01:46:33
+      - 2001-08-08 13:30:20
+      - 2001-11-07 03:12:20
+      - 2002-02-04 20:51:22
+      - 2002-05-06 02:39:01
+      - 2002-08-02 22:36:05
+      - 2002-11-02 02:44:16
+      - 2003-01-31 01:08:08
+      - 2003-05-01 00:57:05
+      - 2003-07-29 22:18:38
+      - 2003-10-27 18:30:07
+      - 2004-01-25 22:19:42
+      - 2004-04-24 22:58:40
+      - 2004-07-24 03:06:47
+      - 2004-10-22 00:25:18
+      - 2005-01-19 23:45:24
+      - 2005-04-20 02:48:11
+      - 2005-07-19 01:27:59
+      - 2005-10-16 21:22:12
+      - 2006-01-14 22:03:35
+      - 2006-04-14 22:26:22
+      - 2006-07-14 01:05:14
+      - 2006-10-11 23:01:46
+      - 2007-01-10 02:41:28
+      - 2007-04-10 01:33:39
+      - 2007-07-09 01:15:14
+      - 2007-10-07 01:16:42
+      - 2008-01-04 15:58:27
+      - 2008-04-03 21:13:07
+      - 2008-07-03 02:49:54
+      - 2008-09-30 14:15:58
+      - 2008-12-29 18:23:53
+      - 2009-03-29 19:13:46
+      - 2009-06-27 21:06:46
+      - 2009-09-25 21:13:06
+      - 2009-12-25 01:09:31
+      - 2010-03-24 21:41:57
+      - 2010-06-22 16:45:10
+      - 2010-09-20 20:08:53
+      - 2010-12-19 20:32:58
+      - 2011-03-20 00:30:08
+      - 2011-06-17 23:13:03
+      - 2011-09-14 14:57:32
+      - 2011-12-14 22:15:24
+      - 2012-03-13 19:36:43
+      - 2012-06-12 02:47:16
+      - 2012-09-10 00:32:54
+      - 2012-12-08 23:26:21
+      - 2013-03-08 15:12:38
+      - 2013-06-07 01:03:04
+      - 2013-09-04 21:44:04
+      - 2013-12-03 22:10:47
+      - 2014-03-03 21:32:18
+      - 2014-06-01 23:04:02
+      - 2014-08-30 15:52:36
+      - 2014-11-28 21:09:19
+      - 2015-02-26 17:25:21
+      - 2015-05-27 23:14:51
+      - 2015-08-26 01:45:44
+      - 2015-11-24 02:36:57
+      - 2016-02-21 20:23:17
+      - 2016-05-22 02:17:00
+      - 2016-08-19 21:32:59
+      - 2016-11-17 22:05:16
+      - 2017-02-15 23:15:47
+      - 2017-05-17 02:57:16
+      - 2017-08-15 02:54:41
+      - 2017-11-13 02:43:32
+      - 2018-02-10 18:37:12
+      - 2018-05-11 21:19:21
+      - 2018-08-09 20:19:32
+      - 2018-11-07 22:00:14
+      - 2019-02-06 00:27:47
+      - 2019-05-07 00:39:39
+      - 2019-08-05 03:14:58
+      - 2019-11-02 20:45:32
+      - 2020-02-01 01:29:13
+      - 2020-04-30 21:33:13
+      - 2020-07-29 21:14:58
+      - 2020-10-28 03:15:00
+      - 2021-01-25 20:15:10
+      - 2021-04-26 03:12:46
+      - 2021-07-25 03:25:37
+      - 2021-10-22 21:19:03
+      - 2022-01-21 02:38:05
+      - 2022-04-21 01:29:02
+      - 2022-07-20 01:55:52
+      - 2022-10-18 01:44:02
+      - 2023-01-15 22:32:09
+      - 2023-04-16 00:05:34
+      - 2023-07-14 19:35:54
+      - 2023-10-13 01:55:25
+      - 2024-01-11 03:26:27
+#     # Instead of manually providing dates, you can also generate
+#     # time windows automatically by specifying a desired window size in
+#     # days. Note that explicit ranges will be preferred and used by default
+#     # if provided.
+#     size_days: 90
+# enumeration:
+#     # If using gitlog, specify the commits
+#     commit:
+#       - 9eae9e96f15e1f216162810cef4271a439a74223
+#       - f1d2d568776b3708dd6a3077376e2331f9268b04
+#       - c33a2ce74c84f0d435bfa2dd8953d132ebf7a77a
+#     # Use datetime only if no gitlog is used in the analysis. Timestamp is inferred from gitlog
+#     datetime:
+#       - 2013-05-01 00:00:00
+#       - 2013-08-01 00:00:00
+#       - 2013-11-01 00:00:00

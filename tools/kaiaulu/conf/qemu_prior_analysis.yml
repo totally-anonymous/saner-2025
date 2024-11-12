@@ -1,0 +1,285 @@
+# -*- yaml -*-
+# https://github.com/sailuh/kaiaulu
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+# Project Configuration File #
+#
+# To perform analysis on open source projects, you need to manually
+# collect some information from the project's website. As there is
+# no standardized website format, this file serves to distill
+# important data source information so it can be reused by others
+# and understood by Kaiaulu.
+#
+# Please check https://github.com/sailuh/kaiaulu/tree/master/conf to
+# see if a project configuration file already exists. Otherwise, we
+# would appreciate if you share your curated file with us by sending a
+# Pull Request: https://github.com/sailuh/kaiaulu/pulls
+#
+# Note, you do NOT need to specify this entire file to conduct analysis.
+# Each R Notebook uses a different portion of this file. To know what
+# information is used, see the project configuration file section at
+# the start of each R Notebook.
+#
+# Please comment unused parameters instead of deleting them for clarity.
+# If you have questions, please open a discussion:
+# https://github.com/sailuh/kaiaulu/discussions
+
+project:
+  website: https://www.qemu.org/
+  openhub: https://openhub.net/p/qemu
+
+version_control:
+  # Where is the git log located locally?
+  # This is the path to the .git of the project repository you are analyzing.
+  # The .git is hidden, so you can see it using `ls -a`
+  log: /home/saner/data/git-repos/qemu/.git
+  # From where the git log was downloaded?
+  log_url: https://gitlab.com/qemu-project/qemu/
+  # List of branches used for analysis
+  branch:
+    - master
+
+# mailing_list:
+  # Where is the mbox located locally?
+  #mbox: ../../rawdata/mbox/geronimo-dev.mbox
+  # What is the domain of the chosen mailing list archive?
+  #domain: http://mail-archives.apache.org/mod_mbox
+  # Which lists of the domain will be used?
+  #list_key:
+  #  - apr-dev
+
+#issue_tracker:
+#  jira:
+    # Obtained from the project's JIRA URL
+#    domain: https://issues.apache.org/jira
+#    project_key: CAMEL
+    # Download using `download_jira_data.Rmd`
+#    issues: ../../rawdata/issue_tracker/camel_issues.json
+#    issue_comments: ../../rawdata/issue_tracker/camel_issue_comments.json
+#  github:
+    # Obtained from the project's GitHub URL
+#    owner: apache
+#    repo: apr
+    # Download using `download_github_comments.Rmd`
+#    replies: ../../rawdata/github/apr/
+
+#vulnerabilities:
+  # Folder path with nvd cve feeds (e.g. nvdcve-1.1-2018.json)
+  # Download at: https://nvd.nist.gov/vuln/data-feeds
+  #nvd_feed: rawdata/nvdfeed
+
+# Commit message CVE or Issue Regular Expression (regex)
+# See project's commit message for examples to create the regex
+# commit_message_id_regex:
+#   issue_id: CAMEL-[0-9]+
+#   #cve_id: ?
+
+filter:
+  keep_filepaths_ending_with:
+    - cpp
+    - c
+    - h
+    - java
+    - js
+    - py
+    - cc
+  remove_filepaths_containing:
+    - test
+
+# Third Party Tools Configuration #
+#
+# See Kaiaulu's README.md for details on how to setup these tools.
+tool:
+  # # Depends allow to parse file-file static dependencies.
+  # depends:
+  #   # accepts one language at a time: cpp, java, ruby, python, pom
+  #   # You can obtain this information on OpenHub or the project GiHub page right pane.
+  #   code_language: java
+  #   # Specify which types of Dependencies to keep - see the Depends tool README.md for details.
+  #   keep_dependencies_type:
+  #     - Cast
+  #     - Call
+  #     - Import
+  #     - Return
+  #     - Set
+  #     - Use
+  #     - Implement
+  #     - ImplLink
+  #     - Extend
+  #     - Create
+  #     - Throw
+  #     - Parameter
+  #     - Contain
+  # dv8:
+  #   # The project folder path to store various intermediate
+  #   # files for DV8 Analysis
+  #   # The folder name will be used in the file names.
+  #   folder_path: ../../analysis/dv8/camel_1_0_0
+  #   # the architectural flaws thresholds that should be used
+  #   architectural_flaws:
+  #     cliqueDepends:
+  #       - call
+  #       - use
+  #     crossingCochange: 2
+  #     crossingFanIn: 4
+  #     crossingFanOut: 4
+  #     mvCochange: 2
+  #     uiCochange: 2
+  #     uihDepends:
+  #       - call
+  #       - use
+  #     uihInheritance:
+  #       - extend
+  #       - implement
+  #       - public
+  #       - private
+  #       - virtual
+  #     uiHistoryImpact: 10
+  #     uiStructImpact: 0.01
+  # Uctags allows finer file-file dependency parsing (e.g. functions, classes, structs)
+  uctags:
+    # See https://github.com/sailuh/kaiaulu/wiki/Universal-Ctags for details
+    # What types of file-file dependencies should be considered? If all
+    # dependencies are specified, Kaiaulu will use all of them if available.
+    keep_lines_type:
+      c:
+        - f # function definition
+      cpp:
+        - c # classes
+        - f # function definition
+      java:
+        - c # classes
+        - m # methods
+      python:
+        - c # classes
+        - f # functions
+      r:
+        - f # functions
+
+# Analysis Configuration #
+analysis:
+  # # A list of topic and keywords (see src_text_showcase.Rmd).
+  # topics:
+  #   topic_1:
+  #     - Parser
+  #     - Lexer
+  #   topic_2:
+  #     - Python
+  #     - Ruby
+  # You can specify the intervals in 2 ways: window, or enumeration
+  window:
+    # # If using gitlog, use start_commit and end_commit. Timestamp is inferred from gitlog
+    # start_commit: 9eae9e96f15e1f216162810cef4271a439a74223
+    # end_commit: f8f9ec1f249dd552065aa37c983bed4d4d869bb0
+    # # Use datetime only if no gitlog is used in the analysis.
+    # start_datetime: 2013-05-01 00:00:00
+    # end_datetime: 2013-11-01 00:00:00
+    # You can provide a set of dates to create time windows between these
+    # dates for evolutionary analyses.
+    ranges:
+      - 2003-02-18 22:55:36
+      - 2003-04-29 21:34:02
+      - 2003-07-27 22:19:00
+      - 2003-10-05 14:28:56
+      - 2004-01-24 16:27:56
+      - 2004-04-24 00:16:28
+      - 2004-07-14 19:20:07
+      - 2004-10-12 22:01:28
+      - 2005-01-17 22:32:23
+      - 2005-04-17 19:50:21
+      - 2005-07-07 22:38:00
+      - 2005-09-08 19:26:14
+      - 2006-01-08 10:53:14
+      - 2006-04-12 21:59:55
+      - 2006-07-10 21:38:17
+      - 2006-10-08 18:20:51
+      - 2007-01-07 22:43:30
+      - 2007-04-09 02:01:57
+      - 2007-07-08 10:08:24
+      - 2007-10-06 11:28:21
+      - 2008-01-03 21:26:23
+      - 2008-04-03 03:13:16
+      - 2008-07-01 23:16:53
+      - 2008-09-30 06:45:44
+      - 2008-12-29 09:47:11
+      - 2009-03-29 10:50:43
+      - 2009-06-24 14:09:15
+      - 2009-09-23 20:00:24
+      - 2009-12-24 07:33:03
+      - 2010-03-23 21:10:45
+      - 2010-06-20 07:55:12
+      - 2010-09-19 08:36:34
+      - 2010-12-19 10:43:09
+      - 2011-03-19 08:43:22
+      - 2011-06-17 00:58:37
+      - 2011-09-14 08:21:58
+      - 2011-12-14 11:14:21
+      - 2012-03-13 09:52:25
+      - 2012-06-11 11:18:23
+      - 2012-09-08 10:17:57
+      - 2012-12-07 18:03:04
+      - 2013-03-08 09:22:14
+      - 2013-06-06 09:27:29
+      - 2013-09-03 10:25:56
+      - 2013-12-03 08:54:16
+      - 2014-03-03 05:46:27
+      - 2014-05-30 20:28:55
+      - 2014-08-29 16:10:18
+      - 2014-11-28 10:29:20
+      - 2015-02-25 18:00:07
+      - 2015-05-27 09:34:07
+      - 2015-08-24 18:14:30
+      - 2015-11-20 17:43:46
+      - 2016-02-19 23:17:48
+      - 2016-05-20 17:28:55
+      - 2016-08-19 08:47:51
+      - 2016-11-17 07:52:47
+      - 2017-02-15 03:18:57
+      - 2017-05-15 13:20:57
+      - 2017-08-14 10:06:54
+      - 2017-11-10 13:27:29
+      - 2018-02-10 09:22:02
+      - 2018-05-11 10:12:02
+      - 2018-08-07 16:26:17
+      - 2018-11-06 20:35:06
+      - 2019-02-05 09:45:44
+      - 2019-05-04 12:55:56
+      - 2019-08-03 07:52:32
+      - 2019-11-01 20:41:00
+      - 2020-01-31 07:49:48
+      - 2020-04-30 11:37:36
+      - 2020-07-28 20:51:03
+      - 2020-10-27 11:15:31
+      - 2021-01-25 09:04:56
+      - 2021-04-23 13:10:56
+      - 2021-07-23 16:22:16
+      - 2021-10-22 10:32:29
+      - 2022-01-20 08:09:37
+      - 2022-04-20 10:09:17
+      - 2022-07-19 10:49:56
+      - 2022-10-17 02:28:35
+      - 2023-01-13 15:22:57
+      - 2023-04-13 15:40:22
+      - 2023-07-14 09:10:58
+      - 2023-10-12 02:50:13
+      - 2024-01-10 08:47:47
+#     # Instead of manually providing dates, you can also generate
+#     # time windows automatically by specifying a desired window size in
+#     # days. Note that explicit ranges will be preferred and used by default
+#     # if provided.
+#     size_days: 90
+# enumeration:
+#     # If using gitlog, specify the commits
+#     commit:
+#       - 9eae9e96f15e1f216162810cef4271a439a74223
+#       - f1d2d568776b3708dd6a3077376e2331f9268b04
+#       - c33a2ce74c84f0d435bfa2dd8953d132ebf7a77a
+#     # Use datetime only if no gitlog is used in the analysis. Timestamp is inferred from gitlog
+#     datetime:
+#       - 2013-05-01 00:00:00
+#       - 2013-08-01 00:00:00
+#       - 2013-11-01 00:00:00
